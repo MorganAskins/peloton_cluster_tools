@@ -2,13 +2,11 @@
 
 username=`whoami`
 
-stuff=$(squeue -l -u $username)
-
-jr=$(echo $stuff | grep RUNNING | wc -l)
+jr=$(squeue -l -u $username | grep RUNNING | wc -l)
 echo "jobs running: $jr"
-jp=$(echo $stuff | grep PENDING | wc -l)
+jp=$(squeue -l -u $username | grep PENDING | wc -l)
 echo "jobs pending: $jp"
-js=$(echo $stuff | grep SUSP | wc -l)
+js=$(squeue -l -u $username | grep SUSP | wc -l)
 echo "jobs suspended: $js"
-tot=$(echo $stuff | awk 'NR>1 {print $1}' |wc -l)
+tot=$(squeue -l -u $username | awk 'NR>2 {print $1}' | wc -l)
 echo "Total jobs: $tot"
